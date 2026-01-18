@@ -1086,7 +1086,8 @@
         const heroSearch = document.getElementById('hero-search');
         const priceRange = document.getElementById('price-range');
         const priceDisplay = document.getElementById('price-display');
-        const sortSelect = document.getElementById('sort-options'); // Changed to match ID usually, checking HTML
+        const sortSelect = document.getElementById('sort-select'); // Fixed ID match
+        const noResults = document.getElementById('no-results');
 
         let activeCategory = "All Categories";
         let selectedBrands = [];
@@ -1209,7 +1210,8 @@
             }
 
             // Update UI Stats
-            if (countDisplay) countDisplay.innerText = filtered.length;
+            // Update UI Stats
+            if (resultCount) resultCount.innerText = filtered.length;
             if (noResults) noResults.classList.toggle('hidden', filtered.length > 0);
 
             // Pagination Logic

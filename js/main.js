@@ -670,3 +670,19 @@ window.handlePartnerRegistration = function (event) {
 
     return false;
 };
+
+// Mobile Filter Toggle (Products Page)
+document.addEventListener('DOMContentLoaded', () => {
+    const filterBtn = document.getElementById('filter-toggle-btn');
+    const filterContent = document.getElementById('filter-content');
+    const filterIcon = document.getElementById('filter-icon');
+
+    if (filterBtn && filterContent) {
+        filterBtn.addEventListener('click', () => {
+            filterContent.classList.toggle('hidden');
+            if (filterIcon) {
+                filterIcon.classList.toggle('rotate-180');
+            }
+        });
+    }
+});
