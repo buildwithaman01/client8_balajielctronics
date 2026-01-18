@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Balaji Electronics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+
+    <!-- NAVBAR (Simplified) -->
+    <nav class="glass-nav sticky top-0 z-[1000] py-4 px-6 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html">
+                <img src="assets/images/logo.png" alt="Balaji Electronics" class="h-12 w-auto">
+            </a>
+            <a href="index.html"
+                class="flex items-center gap-2 text-slate-600 font-bold hover:text-blue-600 transition">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="flex-1 flex flex-col items-center justify-center p-4 text-center">
+        <div class="max-w-md w-full animate-fade-in-up">
+            <div class="mb-8 relative">
+                <h1 class="text-[150px] font-black text-slate-100 leading-none select-none">404</h1>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-6xl text-orange-500 animate-bounce"></i>
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-black text-slate-900 mb-4">Oops! Page Not Found</h2>
+            <p class="text-slate-500 mb-8 leading-relaxed">
+                The page you are looking for might have been moved, deleted, or possibly never existed.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-200">
+                    Back to Home
+                </a>
+                <a href="contact/index.html"
+                    class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-8 py-3 rounded-xl font-bold transition">
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-8 text-slate-400 text-sm font-bold">
+        <p>© 2026 Balaji Electronics.</p>
+        <p class="mt-2 text-xs font-normal">Built with <i class="fas fa-heart text-red-500"></i> by <a
+                href="https://pehchanly.com" target="_blank" class="text-slate-500 hover:text-blue-600">Pehchanly</a>
+        </p>
+    </footer>
+
+</body>
+
+</html>

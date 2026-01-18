@@ -1,0 +1,1004 @@
+import React, { useState, useMemo, useEffect } from 'react';
+import {
+  Search,
+  Filter,
+  Phone,
+  MessageCircle,
+  ChevronRight,
+  Grid,
+  List,
+  X,
+  CheckCircle,
+  AlertCircle,
+  Truck,
+  ShieldCheck,
+  Zap,
+  Star,
+  ArrowLeft,
+  ChevronDown,
+  Info
+} from 'lucide-react';
+
+// --- EXPANDED PRODUCT DATABASE ---
+const PRODUCTS = [
+  // --- CATEGORY 1: INDUSTRIAL MOTORS ---
+  {
+    id: 1,
+    name: "Crompton Greaves 1 HP Single Phase Induction Motor",
+    sku: "CG-1HP-SP-2800",
+    brand: "Crompton",
+    category: "Industrial Motors",
+    subCategory: "Single Phase",
+    phase: "Single Phase",
+    price: 4500,
+    oldPrice: 5200,
+    stockStatus: "in-stock",
+    isBestseller: true,
+    image: "https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=400",
+    specs: "1 HP, Single Phase, 2800 RPM",
+    features: ["100% copper winding", "Low noise operation", "Energy efficient", "ISI marked"],
+    description: "Engineered for reliable performance in demanding applications. Ideal for water pumps and compressors."
+  },
+  {
+    id: 2,
+    name: "Kirloskar 5 HP Three Phase Induction Motor",
+    sku: "KIR-5HP-3P-1440",
+    brand: "Kirloskar",
+    category: "Industrial Motors",
+    subCategory: "Three Phase",
+    phase: "Three Phase",
+    price: null,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=400",
+    specs: "5 HP, Three Phase, 1440 RPM",
+    features: ["Heavy-duty construction", "Low maintenance", "High efficiency"],
+    description: "Robust industrial motor designed for continuous operation in heavy machinery."
+  },
+  {
+    id: 3,
+    name: "Crompton 2 HP Single Phase Motor",
+    sku: "CG-2HP-SP-1440",
+    brand: "Crompton",
+    category: "Industrial Motors",
+    subCategory: "Single Phase",
+    phase: "Single Phase",
+    price: 8200,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=401",
+    specs: "2 HP, Single Phase, 1440 RPM",
+    features: ["Aluminum body", "High starting torque"],
+    description: "Suitable for small industrial units and agricultural machinery."
+  },
+  {
+    id: 4,
+    name: "V-Guard 1 HP Openwell Submersible Motor",
+    sku: "VG-SUB-1HP-OW",
+    brand: "V-Guard",
+    category: "Industrial Motors",
+    subCategory: "Submersible",
+    phase: "Single Phase",
+    price: 3800,
+    stockStatus: "low-stock",
+    stockCount: 3,
+    image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&q=80&w=400",
+    specs: "1 HP, Single Phase, 100% Copper",
+    features: ["Corrosion resistant", "Suitable for 150ft depth"],
+    description: "High head delivery for irrigation and domestic water supply."
+  },
+  {
+    id: 5,
+    name: "Havells 7.5 HP Three Phase Motor",
+    sku: "HAV-7.5HP-3P",
+    brand: "Havells",
+    category: "Industrial Motors",
+    subCategory: "Three Phase",
+    phase: "Three Phase",
+    price: null,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=402",
+    specs: "7.5 HP, 415V, 1440 RPM",
+    features: ["IP55 Protection", "Class F Insulation"],
+    description: "Heavy duty motor for industrial crushers and large mixers."
+  },
+
+  // --- CATEGORY 2: POWER TOOLS ---
+  {
+    id: 10,
+    name: "Bosch GSB 501 Impact Drill Kit",
+    sku: "BOSCH-GSB501",
+    brand: "Bosch",
+    category: "Power Tools",
+    subCategory: "Drilling",
+    price: 3499,
+    oldPrice: 4299,
+    stockStatus: "low-stock",
+    stockCount: 4,
+    isBestseller: true,
+    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=400",
+    specs: "500W, 13mm Chuck, 2800 RPM",
+    features: ["Variable speed", "100-piece accessory set"],
+    description: "Professional impact drill for wood, metal, and masonry."
+  },
+  {
+    id: 11,
+    name: "KPT Heavy Duty 4-inch Angle Grinder",
+    sku: "KPT-AG4-850",
+    brand: "Other",
+    category: "Power Tools",
+    subCategory: "Grinding",
+    price: 1899,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&q=80&w=400",
+    specs: "850W, 100mm Disc, 11000 RPM",
+    features: ["Metal gear housing", "Safety lock switch"],
+    description: "High speed grinder for construction and workshop use."
+  },
+  {
+    id: 12,
+    name: "Bosch GKS 190 Professional Circular Saw",
+    sku: "BOSCH-SAW-190",
+    brand: "Bosch",
+    category: "Power Tools",
+    subCategory: "Cutting",
+    price: 6499,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&q=80&w=400",
+    specs: "1400W, 190mm Blade, 70mm Depth",
+    features: ["Turbo blower", "Dust extraction"],
+    description: "Powerful saw for precision wood cutting."
+  },
+  {
+    id: 13,
+    name: "Digital Multimeter DT-830D",
+    sku: "TEST-MULTI-830",
+    brand: "Other",
+    category: "Power Tools",
+    subCategory: "Testing Equipment",
+    price: 249,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1581092162384-8987c17b492a?auto=format&fit=crop&q=80&w=400",
+    specs: "AC/DC Voltage, Resistance, Diode",
+    features: ["Compact size", "Easy to read LCD"],
+    description: "Essential testing tool for electricians and hobbyists."
+  },
+
+  // --- CATEGORY 3: HOME APPLIANCES ---
+  {
+    id: 20,
+    name: "Bajaj Frore 1200mm High Speed Ceiling Fan",
+    sku: "BAJAJ-FRORE-1200",
+    brand: "Bajaj",
+    category: "Home Appliances",
+    subCategory: "Ceiling Fans",
+    price: 1799,
+    oldPrice: 2199,
+    stockStatus: "in-stock",
+    isBestseller: true,
+    image: "https://images.unsplash.com/photo-1618915860431-10c5980b624a?auto=format&fit=crop&q=80&w=400",
+    specs: "1200mm, 75W, 5-Star Rated",
+    features: ["Rust-proof coating", "Aerodynamic blades"],
+    description: "Maximum air delivery with silent operation."
+  },
+  {
+    id: 21,
+    name: "Polar Winpro 400mm Wall Fan",
+    sku: "POL-WALL-400",
+    brand: "Polar",
+    category: "Home Appliances",
+    subCategory: "Table/Wall Fans",
+    price: 1349,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1622737133809-d95047b9e673?auto=format&fit=crop&q=80&w=400",
+    specs: "400mm, 3-Speed, 180° Oscillation",
+    features: ["Dust-proof motor", "Thermal overload protection"],
+    description: "Wall mounted fan for focused air circulation."
+  },
+  {
+    id: 22,
+    name: "Havells Insta Cook PT Induction Cooktop",
+    sku: "HAV-INSTA-1600",
+    brand: "Havells",
+    category: "Home Appliances",
+    subCategory: "Induction Cooktops",
+    price: 2199,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1617567789395-202951f337f9?auto=format&fit=crop&q=80&w=400",
+    specs: "1600W, LED Display, Timer",
+    features: ["Flat glass surface", "Preset cooking menus"],
+    description: "Safe and energy-efficient induction cooking."
+  },
+  {
+    id: 23,
+    name: "Bajaj Rex 500W Mixer Grinder (3 Jars)",
+    sku: "BAJAJ-REX-500",
+    brand: "Bajaj",
+    category: "Home Appliances",
+    subCategory: "Mixer Grinders",
+    price: 2699,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&q=80&w=400",
+    specs: "500W Copper Motor, 3 SS Jars",
+    features: ["Overload protection", "Incher for pulsing"],
+    description: "Complete solution for grinding, liquidizing, and chutney making."
+  },
+  {
+    id: 24,
+    name: "Bajaj Majesty RX11 2000W Room Heater",
+    sku: "BAJAJ-RX11-HT",
+    brand: "Bajaj",
+    category: "Home Appliances",
+    subCategory: "Room Heaters",
+    price: 1899,
+    stockStatus: "out-of-stock",
+    image: "https://images.unsplash.com/photo-1632733711679-5292d6863001?auto=format&fit=crop&q=80&w=400",
+    specs: "2000W, Adjustable Thermostat",
+    features: ["Tip-over switch", "2 Heat settings"],
+    description: "Compact and powerful room heater for winters."
+  },
+  {
+    id: 25,
+    name: "Crompton Optimus 65L Desert Cooler",
+    sku: "CG-COOL-65L",
+    brand: "Crompton",
+    category: "Home Appliances",
+    subCategory: "Table/Wall Fans", // Categorized for simplicity
+    price: 11500,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1618915860431-10c5980b624a?auto=format&fit=crop&q=80&w=401",
+    specs: "65 Litre, 18 inch Fan, 5500 m3/hr",
+    features: ["Honey comb padding", "Ice chamber"],
+    description: "Powerful desert cooler for large living spaces."
+  },
+
+  // --- CATEGORY 4: WIRING & CABLES ---
+  {
+    id: 30,
+    name: "Polycab 2.5 sq mm FR House Wire (90m)",
+    sku: "POLY-FR-2.5-90M",
+    brand: "Polycab",
+    category: "Wiring & Cables",
+    subCategory: "Electrical Wires",
+    price: 1850,
+    stockStatus: "in-stock",
+    isBestseller: true,
+    image: "https://images.unsplash.com/photo-1626243101659-1506692809e6?auto=format&fit=crop&q=80&w=400",
+    specs: "2.5 sq mm, FR Grade, 90m Coil",
+    features: ["99.97% pure copper", "Flame Retardant"],
+    description: "ISI marked house wire for safe domestic installation."
+  },
+  {
+    id: 31,
+    name: "Polycab 1.5 sq mm FR House Wire (90m)",
+    sku: "POLY-FR-1.5-90M",
+    brand: "Polycab",
+    category: "Wiring & Cables",
+    subCategory: "Electrical Wires",
+    price: 1250,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1626243101659-1506692809e6?auto=format&fit=crop&q=80&w=401",
+    specs: "1.5 sq mm, FR Grade, 90m Coil",
+    features: ["Energy efficient", "Heat resistant"],
+    description: "Suitable for lights, fans, and socket wiring."
+  },
+  {
+    id: 32,
+    name: "Havells 32A Double Pole MCB - C Curve",
+    sku: "HAV-MCB-32A-DP",
+    brand: "Havells",
+    category: "Wiring & Cables",
+    subCategory: "MCBs & Protection",
+    price: 485,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1635326445070-6a11f3fa42f5?auto=format&fit=crop&q=80&w=400",
+    specs: "32A, DP, 10kA Breaking Capacity",
+    features: ["Overload protection", "Short circuit safety"],
+    description: "High quality protection for AC and Main circuits."
+  },
+  {
+    id: 33,
+    name: "Anchor Roma 6A Modular Switch (White)",
+    sku: "ANC-ROMA-6A",
+    brand: "Anchor",
+    category: "Wiring & Cables",
+    subCategory: "Switches & Sockets",
+    price: 25,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1558444458-5f75bc963f45?auto=format&fit=crop&q=80&w=400",
+    specs: "6A, 1-Way, Modular Switch",
+    features: ["Sleek design", "Durable polycarbonate"],
+    description: "Classic Anchor Roma modular switches for modern homes."
+  },
+  {
+    id: 34,
+    name: "Polycab 4 sq mm 3-Core Flexible Cable (100m)",
+    sku: "POLY-FLEX-4-3C",
+    brand: "Polycab",
+    category: "Wiring & Cables",
+    subCategory: "Electrical Wires",
+    price: 4200,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1626243101659-1506692809e6?auto=format&fit=crop&q=80&w=402",
+    specs: "4 sq mm, 3-Core, Multistrand",
+    features: ["High conductivity", "Chemical resistant"],
+    description: "Industrial flexible cable for heavy equipment connections."
+  },
+  {
+    id: 35,
+    name: "Anchor PVC Junction Box 4x4",
+    sku: "ANC-JB-44",
+    brand: "Anchor",
+    category: "Wiring & Cables",
+    subCategory: "Junction Boxes",
+    price: 45,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?auto=format&fit=crop&q=80&w=400",
+    specs: "4x4 inch, PVC Body",
+    features: ["Fire retardant", "Termite proof"],
+    description: "High quality junction box for surface and conduit wiring."
+  },
+
+  // --- CATEGORY 5: ELECTRONIC COMPONENTS ---
+  {
+    id: 40,
+    name: "5.1 Channel Home Theatre Amplifier Board",
+    sku: "HT-AMP-5.1-200W",
+    brand: "Other",
+    category: "Electronic Components",
+    subCategory: "Circuit Boards",
+    price: 1499,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400",
+    specs: "200W Output, Bluetooth & USB Support",
+    features: ["Digital EQ", "Remote Included"],
+    description: "DIY amplifier kit for powerful home audio systems."
+  },
+  {
+    id: 41,
+    name: "Digital Water Level Controller (Auto)",
+    sku: "AUTO-WLC-DIG",
+    brand: "Other",
+    category: "Electronic Components",
+    subCategory: "Circuit Boards",
+    price: 899,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=400",
+    specs: "Sensor based, Dry run protection",
+    features: ["Auto ON/OFF", "LED indicators"],
+    description: "Smart solution to prevent tank overflow and dry motor runs."
+  },
+  {
+    id: 42,
+    name: "Soldering Iron Kit (25W)",
+    sku: "SOLD-KIT-25W",
+    brand: "Other",
+    category: "Electronic Components",
+    subCategory: "Circuit Boards",
+    price: 349,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400",
+    specs: "25W Iron, Solder Wire, Stand",
+    features: ["Heat resistant handle", "Fine tip"],
+    description: "Everything you need for electronic repair and PCB work."
+  },
+  {
+    id: 43,
+    name: "1000uF 25V Capacitor (Pack of 10)",
+    sku: "CAP-1000-25V",
+    brand: "Other",
+    category: "Electronic Components",
+    subCategory: "ICs & Capacitors",
+    price: 120,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=401",
+    specs: "1000 microfarads, 25 Volts",
+    features: ["High temperature stability"],
+    description: "Standard electrolytic capacitors for power supply filters."
+  },
+  {
+    id: 44,
+    name: "LM317 Voltage Regulator IC",
+    sku: "IC-LM317-REG",
+    brand: "Other",
+    category: "Electronic Components",
+    subCategory: "ICs & Capacitors",
+    price: 45,
+    stockStatus: "in-stock",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=402",
+    specs: "Adjustable Output, 1.2V to 37V",
+    features: ["Short circuit protected"],
+    description: "Versatile IC for building custom power supplies."
+  }
+];
+
+const CATEGORIES = [
+  { name: "All Categories", count: 500 },
+  { name: "Industrial Motors", count: 87 },
+  { name: "Power Tools", count: 63 },
+  { name: "Home Appliances", count: 128 },
+  { name: "Wiring & Cables", count: 142 },
+  { name: "Electronic Components", count: 80 },
+];
+
+const BRANDS = ["Polycab", "Bajaj", "Anchor", "Havells", "Crompton", "Kirloskar", "Bosch", "V-Guard", "Polar"];
+
+export default function App() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All Categories");
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [viewMode, setViewMode] = useState('grid');
+  const [priceRange, setPriceRange] = useState(50000);
+
+  // Filter Logic
+  const filteredProducts = useMemo(() => {
+    return PRODUCTS.filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.sku.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = activeCategory === "All Categories" || p.category === activeCategory;
+      const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(p.brand);
+      const matchesPrice = (p.price || 0) <= priceRange || p.price === null;
+
+      return matchesSearch && matchesCategory && matchesBrand && matchesPrice;
+    });
+  }, [searchQuery, activeCategory, selectedBrands, priceRange]);
+
+  const toggleBrand = (brand) => {
+    setSelectedBrands(prev =>
+      prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
+    );
+  };
+
+  const handleWhatsAppQuote = (product) => {
+    const message = `Hi! I'm interested in ${product.name} (SKU: ${product.sku}). Please share the current price, availability, and warranty details. Thank you!`;
+    const url = `https://wa.me/919876543210?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
+  return (
+    <div className= "min-h-screen bg-gray-50 text-gray-900 font-sans" >
+    {/* Header */ }
+    < header className = "bg-white border-b sticky top-0 z-40 shadow-sm" >
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between" >
+        <div className="flex items-center gap-2 cursor-pointer" >
+          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100" > BE </div>
+            < span className = "text-xl font-extrabold tracking-tight" > Balaji < span className = "text-blue-600" > ElectroTech < /span></span >
+              </div>
+              < div className = "hidden md:flex gap-8 text-sm font-semibold" >
+                <a href="#" className = "text-gray-500 hover:text-blue-600 transition" > Home </a>
+                  < a href = "#" className = "text-blue-600 border-b-2 border-blue-600 pb-1" > Products </a>
+                    < a href = "#" className = "text-gray-500 hover:text-blue-600 transition" > Services </a>
+                      < a href = "#" className = "text-gray-500 hover:text-blue-600 transition" > Contact </a>
+                        </div>
+                        < div className = "flex items-center gap-4" >
+                          <button className="hidden sm:flex items-center gap-2 bg-green-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-green-700 transition active:scale-95 shadow-lg shadow-green-100" >
+                            <MessageCircle size={ 18 } /> Get Quote
+                              </button>
+                              </div>
+                              </div>
+                              </header>
+
+  {/* Hero Banner */ }
+  <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white py-20 overflow-hidden" >
+    <div className="absolute inset-0 opacity-10 pointer-events-none" >
+      <img 
+            src="https://images.unsplash.com/photo-1558484663-9069d6519f71?auto=format&fit=crop&q=80&w=1200"
+  className = "w-full h-full object-cover"
+  alt = "collage"
+    />
+    </div>
+    < div className = "relative max-w-7xl mx-auto px-4 text-center" >
+      <span className="bg-blue-500/30 text-blue-200 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6 inline-block backdrop-blur-sm border border-blue-500/20" >
+        Authorized Dealer Since 1995
+          </span>
+          < h1 className = "text-5xl md:text-6xl font-black mb-6 tracking-tight" > 500 + Genuine Electrical Products </h1>
+            < p className = "text-xl text-blue-100 mb-10 max-w-2xl mx-auto font-medium" > Authorized Dealer for India's Most Trusted Brands in Patna. Quality guaranteed for Industrial & Domestic needs.</p>
+
+              < div className = "max-w-3xl mx-auto relative group" >
+              <input 
+              type= "text"
+  placeholder = "Search for motors, fans, wires, tools..."
+  className = "w-full py-5 pl-14 pr-6 rounded-2xl text-gray-900 text-lg shadow-2xl focus:ring-4 focus:ring-blue-500 outline-none transition-all group-hover:shadow-blue-500/20"
+  value = { searchQuery }
+  onChange = {(e) => setSearchQuery(e.target.value)
+}
+            />
+  < Search className = "absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-600 transition-colors" size = { 28} />
+    <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block" >
+      <kbd className="px-2 py-1 bg-gray-100 text-gray-400 text-xs rounded border" > Search </kbd>
+        </div>
+        </div>
+        </div>
+        </div>
+
+{/* Main Content */ }
+<main className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-10" >
+
+  {/* Sidebar Filters */ }
+  < aside className = "w-full md:w-72 flex-shrink-0 space-y-10 sticky top-24 h-fit max-h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar" >
+    <div>
+    <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 flex items-center gap-2" >
+      <Filter size={ 14 } /> Shop By Category
+        </h3>
+        < div className = "space-y-1" >
+        {
+          CATEGORIES.map(cat => (
+            <button 
+                  key= { cat.name } 
+                  onClick = {() => setActiveCategory(cat.name)}
+className = {`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all ${activeCategory === cat.name ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}
+                >
+  <span className="text-sm" > { cat.name } </span>
+    < span className = {`text-[10px] ${activeCategory === cat.name ? 'text-blue-100' : 'text-gray-400'}`}> { cat.count } </span>
+      </button>
+              ))}
+</div>
+  </div>
+
+  < div >
+  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6" > Preferred Brands </h3>
+    < div className = "grid grid-cols-1 gap-2" >
+    {
+      BRANDS.map(brand => (
+        <label key= { brand } className = {`flex items-center gap-3 cursor-pointer group p-2 rounded-lg transition ${selectedBrands.includes(brand) ? 'bg-blue-50 text-blue-700' : 'hover:bg-gray-50'}`} >
+      <input 
+                    type="checkbox"
+className = "w-4 h-4 rounded-md text-blue-600 border-gray-300 focus:ring-blue-500 transition cursor-pointer"
+checked = { selectedBrands.includes(brand) }
+onChange = {() => toggleBrand(brand)}
+                  />
+  < span className = "text-sm font-semibold" > { brand } </span>
+    </label>
+              ))}
+</div>
+  </div>
+
+  < div >
+  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 flex justify-between" >
+    Price Threshold<span>₹{ priceRange.toLocaleString() } </span>
+      </h3>
+      < input
+type = "range"
+min = "10"
+max = "50000"
+step = "100"
+value = { priceRange }
+onChange = {(e) => setPriceRange(parseInt(e.target.value))}
+className = "w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+  />
+  <div className="flex justify-between text-[10px] font-bold text-gray-400 mt-3" >
+    <span>MIN ₹10 </span>
+      < span > MAX ₹50,000 </span>
+        </div>
+        </div>
+
+        < div className = "p-5 bg-blue-900 rounded-2xl text-white relative overflow-hidden group" >
+          <div className="relative z-10" >
+            <h4 className="font-bold mb-2" > Bulk Pricing ? </h4>
+              < p className = "text-xs text-blue-200 mb-4 leading-relaxed" > Special rates for contractors, builders and retailers in Patna.</p>
+                < button className = "w-full py-2 bg-white text-blue-900 rounded-lg text-xs font-bold hover:bg-blue-50 transition active:scale-95" > Inquire Now </button>
+                  </div>
+                  < Zap className = "absolute -right-4 -bottom-4 text-blue-800 opacity-50 group-hover:scale-125 transition-transform" size = { 100} />
+                    </div>
+
+                    < button
+onClick = {() => {
+  setActiveCategory("All Categories");
+  setSelectedBrands([]);
+  setPriceRange(50000);
+  setSearchQuery("");
+}}
+className = "w-full py-4 text-xs font-black uppercase tracking-widest text-blue-600 border-2 border-dashed border-blue-200 rounded-xl hover:bg-blue-50 hover:border-blue-400 transition"
+  >
+  Reset All Filters
+    </button>
+    </aside>
+
+{/* Product Display Area */ }
+<section className="flex-1" >
+  <div className="bg-white p-5 rounded-2xl border flex flex-col sm:flex-row justify-between items-center gap-6 mb-8 shadow-sm" >
+    <div>
+    <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1" > Catalog Results </p>
+      < p className = "text-gray-900 text-lg font-black leading-none" > Showing < span className = "text-blue-600" > { filteredProducts.length } < /span> Products Found</p >
+        </div>
+
+        < div className = "flex items-center gap-6" >
+          <div className="flex bg-gray-100 rounded-xl p-1 border" >
+            <button 
+                  onClick={ () => setViewMode('grid') }
+className = {`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-white shadow-md text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                >
+  <Grid size={ 20 } />
+    </button>
+    < button
+onClick = {() => setViewMode('list')}
+className = {`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-white shadow-md text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                >
+  <List size={ 20 } />
+    </button>
+    </div>
+    < div className = "relative" >
+      <select className="appearance-none bg-gray-100 border border-gray-200 rounded-xl text-sm font-bold py-3 pl-5 pr-12 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer transition" >
+        <option>Sort: Most Popular </option>
+          < option > Price: Low to High </option>
+            < option > Price: High to Low </option>
+              < option > Newest Arrivals </option>
+                </select>
+                < ChevronDown className = "absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size = { 16} />
+                  </div>
+                  </div>
+                  </div>
+
+                  < div className = {`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+                  {
+                    filteredProducts.map(product => (
+                      <ProductCard 
+                key= { product.id } 
+                product = { product } 
+                viewMode = { viewMode }
+                onQuickView = {() => setSelectedProduct(product)}
+onWhatsApp = {() => handleWhatsAppQuote(product)}
+              />
+            ))}
+</div>
+
+{
+  filteredProducts.length === 0 && (
+    <div className="py-24 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200" >
+      <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6" >
+        <Search size={ 40 } className = "text-gray-300" />
+          </div>
+          < h3 className = "text-2xl font-black text-gray-900 mb-2" > No matching products </h3>
+            < p className = "text-gray-500 max-w-sm mx-auto leading-relaxed" > We couldn't find what you're looking for.Try adjusting your filters or search keywords.</p>
+              < button
+  onClick = {() => { setSearchQuery(""); setActiveCategory("All Categories"); setSelectedBrands([]); setPriceRange(50000); }
+}
+className = "mt-8 text-blue-600 font-bold hover:underline"
+  >
+  Clear all filters and start over
+    </button>
+    </div>
+          )}
+
+{/* LOAD MORE / INFO */ }
+{
+  filteredProducts.length > 0 && (
+    <div className="mt-16 text-center" >
+      <button className="px-10 py-4 bg-white border-2 border-gray-100 rounded-2xl font-bold text-gray-900 hover:border-blue-600 hover:text-blue-600 transition active:scale-95 shadow-sm" >
+        Load More Products
+          </button>
+          < p className = "mt-6 text-gray-400 text-sm font-medium" > Viewing { filteredProducts.length } of 500 + items </p>
+            </div>
+          )
+}
+
+<div className="mt-20 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-10 text-center text-white shadow-2xl relative overflow-hidden" >
+  <div className="relative z-10" >
+    <h3 className="text-3xl font-black mb-4 leading-tight" > Can't find a specific spare part or SKU?</h3>
+      < p className = "text-blue-100 mb-8 max-w-xl mx-auto font-medium" > Our physical store in Patna houses over 5,000 different electrical components and equipment.Contact us for direct inventory check.</p>
+        < div className = "flex flex-wrap justify-center gap-4" >
+          <button onClick={ () => window.open('https://wa.me/919876543210', '_blank') } className = "bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-2xl font-black flex items-center gap-3 transition shadow-xl shadow-green-900/20 active:scale-95 uppercase tracking-widest text-sm" >
+            <MessageCircle size={ 22 } /> Request on WhatsApp
+              </button>
+              < a href = "tel:9876543210" className = "bg-white text-blue-900 px-8 py-4 rounded-2xl font-black flex items-center gap-3 hover:bg-blue-50 transition active:scale-95 uppercase tracking-widest text-sm shadow-xl" >
+                <Phone size={ 22 } /> Call Expert
+                  </a>
+                  </div>
+                  </div>
+                  < div className = "absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none" > </div>
+                    </div>
+                    </section>
+                    </main>
+
+{/* Trust Badges */ }
+<section className="bg-white border-t mt-20 py-20" >
+  <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12" >
+    <div className="flex flex-col items-center text-center" >
+      <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-blue-100" >
+        <ShieldCheck size={ 32 } />
+          </div>
+          < h4 className = "font-black text-gray-900 text-lg mb-2" > 100 % Genuine </h4>
+            < p className = "text-sm text-gray-500 leading-relaxed" > Authorized distributor for top industrial and home brands with official warranty.</p>
+              </div>
+              < div className = "flex flex-col items-center text-center" >
+                <div className="w-16 h-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-green-100" >
+                  <Zap size={ 32 } />
+                    </div>
+                    < h4 className = "font-black text-gray-900 text-lg mb-2" > Competitive Pricing </h4>
+                      < p className = "text-sm text-gray-500 leading-relaxed" > We offer the best industrial rates in Patna and whole - sale prices for bulk orders.</p>
+                        </div>
+                        < div className = "flex flex-col items-center text-center" >
+                        <div className= "w-16 h-16 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-orange-100" >
+                          <Truck size={ 32 } />
+                            </div>
+                            < h4 className = "font-black text-gray-900 text-lg mb-2" > Same Day Delivery </h4>
+                              < p className = "text-sm text-gray-500 leading-relaxed" > Fast local delivery within Patna for orders placed before 2 PM.Regional shipping available.</p>
+                                </div>
+                                < div className = "flex flex-col items-center text-center" >
+                                  <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-purple-100" >
+                                    <Phone size={ 32 } />
+                                      </div>
+                                      < h4 className = "font-black text-gray-900 text-lg mb-2" > Technical Guidance </h4>
+                                        < p className = "text-sm text-gray-500 leading-relaxed" > Our in -house electrical experts help you choose the right specs for your projects.</p>
+                                          </div>
+                                          </div>
+                                          </section>
+
+      {/* Modal */ }
+      {
+  selectedProduct && (
+    <ProductDetailModal 
+          product={ selectedProduct }
+  onClose = {() => setSelectedProduct(null)
+}
+onWhatsApp = {() => handleWhatsAppQuote(selectedProduct)}
+        />
+      )}
+</div>
+  );
+}
+
+// --- Product Components ---
+
+function ProductCard({ product, viewMode, onQuickView, onWhatsApp }) {
+  const isGrid = viewMode === 'grid';
+
+  const StockBadge = () => {
+    if (product.stockStatus === 'out-of-stock')
+      return <span className="bg-red-50 text-red-600 text-[10px] font-black px-2.5 py-1.5 rounded-lg border border-red-100 uppercase tracking-widest flex items-center gap-1" > <X size={ 12 } /> Out of Stock</span >;
+    if (product.stockStatus === 'low-stock')
+      return <span className="bg-amber-50 text-amber-700 text-[10px] font-black px-2.5 py-1.5 rounded-lg border border-amber-100 uppercase tracking-widest flex items-center gap-1" > <AlertCircle size={ 12 } /> Only {product.stockCount} Left!</span >;
+    return <span className="bg-green-50 text-green-600 text-[10px] font-black px-2.5 py-1.5 rounded-lg border border-green-100 uppercase tracking-widest flex items-center gap-1" > <CheckCircle size={ 12 } /> In Stock</span >;
+  };
+
+  return (
+    <div 
+      className= {`bg-white rounded-3xl border border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-500 group cursor-pointer overflow-hidden relative flex ${isGrid ? 'flex-col' : 'flex-row'}`
+}
+onClick = { onQuickView }
+  >
+  {/* Badges */ }
+  < div className = "absolute top-4 left-4 z-10 flex flex-col gap-2" >
+  {
+    product.isBestseller && (
+      <div className="bg-blue-600 text-white text-[10px] font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5 uppercase tracking-widest shadow-lg shadow-blue-500/20">
+        <Star size={ 12 } fill = "currentColor" /> Bestseller
+          </div>
+        )}
+<div className="bg-white/90 backdrop-blur-sm border px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest text-gray-500 shadow-sm" > { product.brand } </div>
+  </div>
+
+  < div className = "absolute top-4 right-4 z-10" >
+    <StockBadge />
+    </div>
+
+    < div className = {`bg-gray-50 flex items-center justify-center relative overflow-hidden ${isGrid ? 'h-64' : 'w-72 h-full flex-shrink-0'}`}>
+      <img 
+          src={ product.image }
+alt = { product.name }
+className = "w-full h-full object-cover transition duration-700 group-hover:scale-110"
+  />
+  <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/40 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100" >
+    <span className="bg-white text-blue-900 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500" > Quick View </span>
+      </div>
+      </div>
+
+      < div className = "p-6 flex flex-col flex-1" >
+        <div className="mb-4" >
+          <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-1 block" > { product.category } </span>
+            < h4 className = "font-black text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors text-lg" > { product.name } </h4>
+              </div>
+
+              < div className = "flex items-center gap-2 mb-6" >
+                <div className="bg-gray-50 p-2 rounded-lg border border-gray-100" >
+                  <Info size={ 14 } className = "text-gray-400" />
+                    </div>
+                    < p className = "text-xs text-gray-500 font-medium leading-tight" > { product.specs } </p>
+                      </div>
+
+                      < div className = "mt-auto" >
+                        <div className="flex items-center gap-3 mb-6" >
+                          <span className="text-2xl font-black text-gray-900 tracking-tight" >
+                            { product.price ? `₹${product.price.toLocaleString()}` : 'Call for Price' }
+                            </span>
+{
+  product.oldPrice && (
+    <span className="text-sm text-gray-400 line-through font-bold" >₹{ product.oldPrice.toLocaleString() } </span>
+            )
+}
+{
+  product.oldPrice && (
+    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-md text-[10px] font-black uppercase" > -{ Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) } % </span>
+            )
+}
+</div>
+
+  < div className = "flex gap-3" >
+    <button 
+              onClick={ (e) => { e.stopPropagation(); onWhatsApp(); } }
+className = "flex-1 bg-green-600 hover:bg-green-700 text-white text-[11px] font-black py-4 rounded-2xl flex items-center justify-center gap-2 transition active:scale-95 shadow-lg shadow-green-100 uppercase tracking-widest"
+  >
+  <MessageCircle size={ 16 } /> Get Quote
+    </button>
+    < button
+className = "w-12 h-12 border-2 border-gray-100 text-gray-400 rounded-2xl flex items-center justify-center hover:bg-gray-50 hover:text-blue-600 hover:border-blue-200 transition active:scale-95"
+title = "Call for Details"
+  >
+  <Phone size={ 18 } />
+    </button>
+    </div>
+    </div>
+    </div>
+    </div>
+  );
+}
+
+function ProductDetailModal({ product, onClose, onWhatsApp }) {
+  const [activeTab, setActiveTab] = useState('specs');
+
+  return (
+    <div className= "fixed inset-0 z-50 flex items-center justify-center p-4" >
+    <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-md animate-in fade-in duration-300" onClick = { onClose } />
+
+      <div className="bg-white w-full max-w-5xl max-h-[95vh] rounded-[2.5rem] overflow-hidden shadow-[0_32px_128px_rgba(0,0,0,0.3)] relative flex flex-col animate-in zoom-in slide-in-from-bottom-8 duration-500" >
+
+        <button onClick={ onClose } className = "absolute top-6 right-6 z-10 w-12 h-12 bg-white/80 backdrop-blur shadow-xl rounded-full flex items-center justify-center hover:bg-gray-100 transition active:scale-90 text-gray-900" >
+          <X size={ 24 } />
+            </button>
+
+            < div className = "flex-1 overflow-y-auto p-8 md:p-12 lg:p-16" >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20" >
+                {/* Gallery Area */ }
+                < div >
+                <div className="bg-gray-50 rounded-[2rem] border border-gray-100 aspect-square overflow-hidden mb-6 flex items-center justify-center" >
+                  <img src={ product.image } alt = { product.name } className = "w-full h-full object-cover" />
+                    </div>
+                    < div className = "grid grid-cols-4 gap-4" >
+                    {
+                      [1, 2, 3, 4].map(i => (
+                        <div key= { i } className = {`aspect-square rounded-2xl border-2 transition cursor-pointer overflow-hidden bg-gray-50 ${i === 1 ? 'border-blue-600' : 'border-transparent opacity-50 hover:opacity-100'}`} >
+                      <img src={ product.image } className = "w-full h-full object-cover" alt = "thumb" />
+                        </div>
+                  ))
+}
+</div>
+  </div>
+
+{/* Content Area */ }
+<div>
+  <div className="flex items-center gap-3 mb-6" >
+    <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-black uppercase tracking-widest" > { product.brand } </span>
+      < span className = "text-[10px] font-black text-gray-400 uppercase tracking-widest" > SKU: { product.sku } </span>
+        </div>
+        < h2 className = "text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight" > { product.name } </h2>
+
+          < div className = "flex items-center gap-4 mb-10" >
+            <div className="flex items-center text-yellow-400 gap-0.5" >
+              { [1, 2, 3, 4, 5].map(i => <Star key={ i } size = { 18} fill = "currentColor" />) }
+              </div>
+              < span className = "text-sm text-gray-400 font-bold border-l pl-4 uppercase tracking-widest" > 4.8 / 5.0 Rating </span>
+                </div>
+
+                < div className = "bg-blue-50 rounded-[2rem] p-8 mb-10 border border-blue-100 shadow-sm relative overflow-hidden group" >
+                  <div className="relative z-10" >
+                    <p className="text-blue-600 text-xs font-black uppercase tracking-widest mb-4" > Current Best Price </p>
+                      < div className = "flex items-baseline gap-4 mb-1" >
+                        <span className="text-5xl font-black text-blue-900 tracking-tighter" >
+                          { product.price ? `₹${product.price.toLocaleString()}` : 'Get Custom Quote' }
+                          </span>
+{ product.oldPrice && <span className="text-xl text-blue-400/50 line-through font-bold" >₹{ product.oldPrice.toLocaleString() } </span> }
+</div>
+  < p className = "text-sm text-blue-700 font-bold italic mb-8 flex items-center gap-2" >
+    <CheckCircle size={ 14 } /> Price inclusive of all taxes + GST Invoice
+      </p>
+      < div className = "space-y-4" >
+        <button onClick={ onWhatsApp } className = "w-full bg-green-600 hover:bg-green-700 text-white h-16 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition shadow-xl shadow-green-900/20 active:scale-[0.98] uppercase tracking-widest" >
+          <MessageCircle size={ 24 } /> Get Offer on WhatsApp
+            </button>
+            < a href = "tel:9876543210" className = "w-full bg-white text-blue-900 border-2 border-blue-100 h-16 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:bg-blue-50 transition active:scale-[0.98] uppercase tracking-widest" >
+              <Phone size={ 24 } /> Call Store Manager
+                </a>
+                </div>
+                </div>
+                < Zap className = "absolute -right-4 -bottom-4 text-blue-100 opacity-30 pointer-events-none group-hover:scale-110 transition-transform duration-700" size = { 150} />
+                  </div>
+
+                  < div className = "grid grid-cols-2 gap-y-4 text-sm font-bold" >
+                    <div className="flex items-center gap-3 text-gray-700" > <CheckCircle size={ 18 } className = "text-green-500" /> Genuine Warranty </div>
+                      < div className = "flex items-center gap-3 text-gray-700" > <CheckCircle size={ 18 } className = "text-green-500" /> Free Patna Delivery </div>
+                        < div className = "flex items-center gap-3 text-gray-700" > <CheckCircle size={ 18 } className = "text-green-500" /> Expert Installation </div>
+                          < div className = "flex items-center gap-3 text-gray-700" > <CheckCircle size={ 18 } className = "text-green-500" /> GST Ready Invoice </div>
+                            </div>
+                            </div>
+                            </div>
+
+                            < div className = "mt-20" >
+                              <div className="flex border-b border-gray-100 overflow-x-auto custom-scrollbar no-scrollbar" >
+                              {
+                                [
+                                { id: 'specs', label: 'Detailed Specs' },
+                                { id: 'description', label: 'Product Info' },
+                                { id: 'warranty', label: 'Warranty & Claims' }
+                                ].map(tab => (
+                                  <button
+                  key= { tab.id }
+                  onClick = {() => setActiveTab(tab.id)}
+className = {`px-10 py-6 font-black text-xs uppercase tracking-[0.2em] transition relative whitespace-nowrap ${activeTab === tab.id ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                >
+  { tab.label }
+{ activeTab === tab.id && <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-600 rounded-full" />}
+</button>
+              ))}
+</div>
+
+  < div className = "py-12" >
+    { activeTab === 'specs' && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-6" >
+      {
+        [
+        { l: "Brand", v: product.brand },
+        { l: "Category", v: product.category },
+        { l: "Sub-Category", v: product.subCategory },
+        { l: "SKU / Model", v: product.sku },
+        { l: "Main Specs", v: product.specs },
+        { l: "Stock Status", v: product.stockStatus.toUpperCase().replace('-', ' ') },
+        { l: "Winding Type", v: "100% Electrolytic Copper" },
+        { l: "Quality Standard", v: "ISI Marked / ISO Certified" }
+        ].map(item => (
+          <div key= { item.l } className = "flex justify-between items-center py-4 border-b border-gray-50 group" >
+          <span className="text-gray-400 font-bold uppercase tracking-widest text-[10px]" > { item.l } </span>
+        < span className = "text-gray-900 font-black text-sm" > { item.v || 'Contact Dealer' } </span>
+        </div>
+        ))
+      }
+        </div>
+              )}
+{
+  activeTab === 'description' && (
+    <div className="max-w-3xl" >
+      <h4 className="text-2xl font-black text-gray-900 mb-6" > Expert Overview </h4>
+        < p className = "text-gray-500 leading-[1.8] text-lg mb-10" > { product.description } </p>
+          < h5 className = "font-black text-gray-900 uppercase tracking-widest text-xs mb-6" > Key Engineering Highlights </h5>
+            < div className = "grid grid-cols-1 sm:grid-cols-2 gap-6" >
+            {
+              product.features.map((f, i) => (
+                <div key= { i } className = "flex gap-4 items-start bg-gray-50 p-6 rounded-2xl border border-gray-100 group hover:border-blue-200 transition" >
+                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-blue-600 shadow-sm border border-gray-100 group-hover:bg-blue-600 group-hover:text-white transition-all" >
+              <CheckCircle size={ 20} />
+              </div>
+              < span className = "text-gray-900 font-black text-sm pt-2" > { f } </span>
+              </div>
+              ))
+            }
+              </div>
+              </div>
+              )
+}
+{
+  activeTab === 'warranty' && (
+    <div className="max-w-2xl bg-orange-50/50 p-10 rounded-3xl border border-orange-100" >
+      <h4 className="text-xl font-black text-orange-900 mb-4 flex items-center gap-3" >
+        <ShieldCheck size={ 28 } /> Authorized Warranty Information
+          </h4>
+          < p className = "text-orange-800 leading-relaxed font-medium mb-6 italic" > This product is covered by the manufacturer's official warranty policy. As an authorized dealer, Balaji ElectroTech facilitates all service requests and genuine part replacements.</p>
+            < ul className = "space-y-4 text-sm font-bold text-orange-900/70 mb-8" >
+              <li className="flex items-center gap-2" >• Standard 12 - 18 Month Manufacturer Warranty </li>
+                < li className = "flex items-center gap-2" >• 100 % Genuine Spare Parts Guaranteed </li>
+                  < li className = "flex items-center gap-2" >• On - site support available in Patna region </li>
+                    </ul>
+                    < div className = "bg-white p-6 rounded-2xl border border-orange-200 flex items-center justify-between" >
+                      <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-orange-400 mb-1" > Service Helpline </p>
+                        < p className = "text-lg font-black text-orange-900" > +91 9876543210 </p>
+                          </div>
+                          < button className = "bg-orange-600 text-white px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-orange-900/20 active:scale-95 transition" > Claim Support </button>
+                            </div>
+                            </div>
+              )
+}
+</div>
+  </div>
+  </div>
+  </div>
+  </div>
+  );
+}

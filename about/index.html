@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Balaji Electronics & Motor Works Parsa</title>
+    <meta name="description"
+        content="Balaji Electronics & Motor Works story since 2012. From a small repair shop in Parsa Bazar to a trusted electrical solutions provider. 12+ years experience.">
+    <meta name="keywords"
+        content="about balaji electronics, parsa electrical shop history, balaji motor works parsa, trusted electrician parsa bazar, electrical company since 2012">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-MEASUREMENT_ID');
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- URGENT BAR -->
+    <div id="urgent-bar"
+        class="bg-gradient-to-r from-blue-900 via-slate-900 to-blue-900 text-white text-center py-2.5 px-10 text-xs md:text-sm font-bold tracking-wide sticky top-0 z-[1001] shadow-lg relative">
+        <div class="flex justify-center items-center gap-2 md:gap-4 flex-wrap">
+            <span>⚡ Same-Day Motor Repair</span>
+            <span class="hidden md:inline">•</span>
+            <span>🔧 24/7 Emergency: <a href="tel:8347588525"
+                    class="underline hover:text-orange-400 font-extrabold text-yellow-400">8347588525</a></span>
+            <span class="hidden md:inline">•</span>
+            <span>Mon-Sat: 9AM - 8PM</span>
+        </div>
+        <button onclick="document.getElementById('urgent-bar').style.display='none'"
+            class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10">
+            <i class="fas fa-times text-sm"></i>
+        </button>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav
+        class="bg-white/90 backdrop-blur-md border-b border-white/20 sticky top-0 z-[1000] py-4 px-6 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="../index.html" class="flex-shrink-0 group">
+                <img src="../assets/images/logo.png" alt="Balaji Electronics"
+                    class="h-16 md:h-20 w-auto group-hover:scale-105 transition-transform duration-300 drop-shadow-sm">
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-8 font-bold text-slate-600 text-sm tracking-wide">
+                <a href="../index.html"
+                    class="hover:text-blue-600 transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all"
+                    data-i18n="nav_home">Home</a>
+                <a href="../products/index.html"
+                    class="hover:text-blue-600 transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all"
+                    data-i18n="nav_products">Products</a>
+                <a href="../services/index.html"
+                    class="hover:text-blue-600 transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all"
+                    data-i18n="nav_services">Services</a>
+
+                <!-- Connect Dropdown -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 hover:text-blue-600 transition-colors py-4">
+                        <span data-i18n="nav_connect">Connect</span> <i
+                            class="fas fa-chevron-down text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </button>
+                    <div
+                        class="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50">
+                        <a href="../contact/index.html#b2b"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition-colors group/item">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
+                                <i class="fas fa-building text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-xs">B2B Partner Portal</span>
+                                <span class="block text-[10px] text-slate-400 font-normal">For Bulk Orders</span>
+                            </div>
+                        </a>
+                        <a href="../contact/index.html"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition-colors group/item">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center group-hover/item:bg-orange-600 group-hover/item:text-white transition-colors">
+                                <i class="fas fa-envelope text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-xs" data-i18n="nav_contact">Contact Us</span>
+                                <span class="block text-[10px] text-slate-400 font-normal">Get Support</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- About Dropdown (Active) -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-blue-700 font-bold py-4">
+                        <span data-i18n="nav_about">About</span> <i
+                            class="fas fa-chevron-down text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </button>
+                    <div
+                        class="absolute top-full right-0 w-56 bg-white rounded-xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 p-2 z-50">
+                        <a href="../about/index.html"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition-colors group/item">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center group-hover/item:bg-purple-600 group-hover/item:text-white transition-colors">
+                                <i class="fas fa-history text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-xs">Our Story</span>
+                                <span class="block text-[10px] text-slate-400 font-normal">Since 1998</span>
+                            </div>
+                        </a>
+                        <a href="../gallery/index.html"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition-colors group/item">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center group-hover/item:bg-green-600 group-hover/item:text-white transition-colors">
+                                <i class="fas fa-images text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-xs">Project Gallery</span>
+                                <span class="block text-[10px] text-slate-400 font-normal">See Our Work</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="../blog/index.html"
+                    class="hover:text-blue-600 transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all"
+                    data-i18n="nav_blog">Blog</a>
+
+                <!-- Language Toggle -->
+                <!-- Language Toggle -->
+                <button
+                    class="lang-toggle-btn flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition-colors text-xs font-bold border border-slate-200">
+                    <i class="fas fa-language"></i>
+                    <span class="lang-text">हिंदी</span>
+                </button>
+
+                <a href="tel:8347588525"
+                    class="bg-blue-700 text-white px-6 py-2.5 rounded-full hover:bg-blue-800 hover:shadow-lg hover:shadow-blue-900/20 transition-all active:scale-95 flex items-center gap-2 group/btn">
+                    <i class="fas fa-phone-alt group-hover/btn:animate-wiggle"></i> <span data-i18n="nav_call">Call
+                        Now</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-slate-800 hover:text-blue-600 p-2 text-2xl transition-colors ml-auto">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMBS -->
+    <div class="bg-slate-50 border-b border-slate-200 py-2 sticky top-[103px] z-[900]">
+        <div
+            class="max-w-7xl mx-auto px-6 text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <a href="../index.html" class="hover:text-blue-600 transition-colors" data-i18n="nav_home">Home</a>
+            <i class="fas fa-chevron-right text-[10px] text-slate-300"></i>
+            <span class="text-slate-900" data-i18n="about_title">Our Story</span>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU SIDEBAR (Consistent) -->
+    <div id="mobile-menu"
+        class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl z-[2000] transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center bg-slate-50">
+            <h2 class="font-extrabold text-blue-900 text-lg">Menu</h2>
+            <button id="close-menu-btn"
+                class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-red-100 hover:text-red-600 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6 space-y-2 font-bold text-slate-600">
+            <a href="../index.html" class="block py-3 px-4 rounded-xl hover:bg-slate-50">Home</a>
+            <a href="../products/index.html" class="block py-3 px-4 rounded-xl hover:bg-slate-50">Products</a>
+            <a href="../services/index.html" class="block py-3 px-4 rounded-xl hover:bg-slate-50">Services</a>
+            <div>
+                <button
+                    class="mobile-dropdown-trigger w-full flex justify-between items-center py-3 px-4 rounded-xl hover:bg-slate-50">
+                    Connect <i class="fas fa-chevron-down text-sm transition-transform"></i>
+                </button>
+                <div class="hidden pl-4 space-y-1 bg-slate-50 rounded-xl my-1">
+                    <a href="../contact/index.html#b2b" class="block py-2.5 px-4 text-sm hover:text-blue-600">B2B
+                        Portal</a>
+                    <a href="../contact/index.html" class="block py-2.5 px-4 text-sm hover:text-blue-600">Contact Us</a>
+                </div>
+            </div>
+            <div>
+                <button
+                    class="mobile-dropdown-trigger w-full flex justify-between items-center py-3 px-4 rounded-xl hover:bg-slate-50 text-blue-600 bg-blue-50">
+                    About <i class="fas fa-chevron-down text-sm transition-transform"></i>
+                </button>
+                <div class="pl-4 space-y-1 bg-slate-50 rounded-xl my-1">
+                    <a href="../about/index.html"
+                        class="block py-2.5 px-4 text-sm hover:text-blue-600 text-blue-600 font-bold">Our Story</a>
+                    <a href="../gallery/index.html" class="block py-2.5 px-4 text-sm hover:text-blue-600">Gallery</a>
+                </div>
+            </div>
+            <a href="../blog/index.html" class="block py-3 px-4 rounded-xl hover:bg-slate-50">Blog</a>
+        </div>
+        <div class="p-6 bg-slate-50 border-t space-y-3">
+            <button
+                class="lang-toggle-btn w-full bg-white text-slate-700 border border-slate-200 py-3 rounded-xl font-bold shadow-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors">
+                <i class="fas fa-language text-blue-600"></i> <span class="lang-text">हिंदी</span>
+            </button>
+            <a href="tel:8347588525"
+                class="block w-full bg-blue-600 text-white text-center py-3 rounded-xl font-bold shadow-lg">
+                <i class="fas fa-phone-alt mr-2"></i> Call Now
+            </a>
+            <a href="https://wa.me/918347588525"
+                class="block w-full bg-green-500 text-white text-center py-3 rounded-xl font-bold shadow-lg">
+                <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="relative py-24 bg-slate-900 overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590959651373-a3db0f38a961?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-20">
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-6 animate-fade-in-up" data-i18n="about_hero_title">
+                The Electronics Story</h1>
+            <p class="text-xl text-slate-300 italic font-medium animate-fade-in-up delay-100"
+                data-i18n="about_hero_quote">"Quality is not an act, it
+                is a habit."</p>
+        </div>
+    </header>
+
+    <!-- CONTENT SECTIONS -->
+    <div class="max-w-4xl mx-auto px-4 py-20">
+
+        <!-- Intro -->
+        <section class="mb-20 reveal text-center md:text-left">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4"
+                data-i18n="about_badge_est">Established
+                2012</span>
+            <h2 class="text-4xl font-black text-slate-900 mb-8" data-i18n="about_journey_title">Our Journey</h2>
+            <p class="text-lg text-slate-600 leading-loose mb-6" data-i18n="about_journey_p1">
+                Balaji Electronics began its journey in 2012 as a dedicated repair shop in Parsa, Bihar. Founded by
+                <span class="font-bold text-slate-900">Mr. Ashish Kumar Singh</span>, the vision was clear from day one:
+                to provide honest, high-quality electrical repairs without ever cutting corners.
+            </p>
+            <p class="text-lg text-slate-600 leading-loose" data-i18n="about_journey_p2">
+                Over the last 12 years, that small shop has evolved into one of the region's most trusted independent
+                service centers. Today, we specialize in industrial motors and home electrical solutions, bridging the
+                gap between traditional technical expertise and modern service standards.
+            </p>
+        </section>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24 reveal delay-100">
+            <div
+                class="p-6 bg-white rounded-2xl shadow-lg border border-slate-100 text-center hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-4xl font-black text-blue-600 mb-2">12+</div>
+                <div class="text-xs font-bold uppercase text-slate-400" data-i18n="about_stat_years">Years Excellence
+                </div>
+            </div>
+            <div
+                class="p-6 bg-white rounded-2xl shadow-lg border border-slate-100 text-center hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-4xl font-black text-orange-600 mb-2">15k+</div>
+                <div class="text-xs font-bold uppercase text-slate-400" data-i18n="about_stat_households">Households
+                    Served</div>
+            </div>
+            <div
+                class="p-6 bg-white rounded-2xl shadow-lg border border-slate-100 text-center hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-4xl font-black text-green-600 mb-2">500+</div>
+                <div class="text-xs font-bold uppercase text-slate-400" data-i18n="about_stat_businesses">Local
+                    Businesses</div>
+            </div>
+            <div
+                class="p-6 bg-white rounded-2xl shadow-lg border border-slate-100 text-center hover:-translate-y-1 transition-transform duration-300">
+                <div class="text-4xl font-black text-purple-600 mb-2">3</div>
+                <div class="text-xs font-bold uppercase text-slate-400" data-i18n="about_stat_locations">Locations</div>
+            </div>
+        </div>
+
+        <!-- Founder Section -->
+        <section class="mb-24 reveal">
+            <h2 class="text-3xl font-black text-slate-900 mb-10 text-center">Meet the Founder</h2>
+            <div
+                class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 relative overflow-hidden group">
+                <!-- Decorative background elements -->
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -mr-16 -mt-16">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-64 h-64 bg-orange-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 -ml-16 -mb-16">
+                </div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                    <!-- Owner Photo Placeholder -->
+                    <div
+                        class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-white shadow-2xl flex-shrink-0 overflow-hidden relative">
+                        <img src="../photos/owner_photo.jpeg" alt="Ashish Kumar Singh"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+
+                    <div class="text-center md:text-left flex-1">
+                        <h3 class="text-3xl font-black text-slate-900 mb-2" data-i18n="about_founder_title">Ashish Kumar
+                            Singh</h3>
+                        <p class="text-blue-600 font-bold uppercase tracking-wider text-sm mb-6"
+                            data-i18n="about_founder_role">Founder & Visionary</p>
+
+                        <p class="text-slate-600 mb-6 leading-relaxed italic" data-i18n="about_founder_quote">
+                            "With over a decade of hands-on leadership, I've built Balaji Electronics on the pillars of
+                            integrity and precision. My deep understanding of electrical dynamics and commitment to
+                            customer satisfaction has been the driving force behind our expansion from Parsa to becoming
+                            a leading name in Patna."
+                        </p>
+
+                        <blockquote class="border-l-4 border-orange-500 pl-6 py-2 bg-orange-50/50 rounded-r-xl">
+                            <p class="text-slate-800 font-bold font-serif text-lg">
+                                "Our goal isn't just to fix a machine; it's to build a relationship of trust with every
+                                client who walks through our doors."
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="reveal">
+            <h2 class="text-3xl font-black text-slate-900 mb-10 text-center" data-i18n="about_choose_title">Why Choose
+                Balaji Electronics?</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12" data-i18n="about_choose_desc">We believe in a
+                "Customer First" philosophy.
+                Whether it is a complex industrial motor or a standard home appliance, we treat every project with the
+                same level of strict quality control.</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-blue-50 p-8 rounded-2xl hover:bg-blue-100 transition-colors">
+                    <div
+                        class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center mb-6 text-xl shadow-lg shadow-blue-600/20">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-3" data-i18n="about_feat_honest_title">Honest
+                        Diagnostics</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="about_feat_honest_desc">No hidden costs
+                        or unnecessary repairs. We tell
+                        you exactly what's wrong.</p>
+                </div>
+
+                <div class="bg-orange-50 p-8 rounded-2xl hover:bg-orange-100 transition-colors">
+                    <div
+                        class="w-12 h-12 bg-orange-600 text-white rounded-xl flex items-center justify-center mb-6 text-xl shadow-lg shadow-orange-600/20">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-3" data-i18n="about_feat_expert_title">Proven
+                        Expertise</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="about_feat_expert_desc">12+ years of
+                        specialized experience in both motors
+                        and appliances.</p>
+                </div>
+
+                <div class="bg-green-50 p-8 rounded-2xl hover:bg-green-100 transition-colors">
+                    <div
+                        class="w-12 h-12 bg-green-600 text-white rounded-xl flex items-center justify-center mb-6 text-xl shadow-lg shadow-green-600/20">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-3" data-i18n="about_feat_scale_title">Scalable
+                        Solutions</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="about_feat_scale_desc">Serving both
+                        individual homes and large-scale
+                        industrial units effectively.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-300 py-16 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10 mb-12">
+            <div class="col-span-1 md:col-span-1">
+                <h2 class="text-2xl font-extrabold text-white mb-4">Balaji <span
+                        class="text-blue-600">Electronics</span></h2>
+                <p class="text-sm leading-relaxed mb-6 text-slate-500" data-i18n="footer_desc">
+                    Your complete electrical solutions partner. We combine traditional expertise with modern service.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-900 hover:bg-blue-600 transition-colors"><i
+                            class="fab fa-facebook-f text-sm"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-900 hover:bg-pink-600 transition-colors"><i
+                            class="fab fa-instagram text-sm"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-900 hover:bg-green-600 transition-colors"><i
+                            class="fab fa-whatsapp text-sm"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6" data-i18n="footer_quick_links">Quick Links</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li><a href="../index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="nav_home">Home</a></li>
+                    <li><a href="../about/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="nav_about">About Us</a></li>
+                    <li><a href="../services/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="nav_services">Services</a></li>
+                    <li><a href="../contact/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6" data-i18n="footer_services">Services</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li><a href="../services/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="service_motor">Motor
+                            Rewinding</a></li>
+                    <li><a href="../services/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="service_wiring">House Wiring</a>
+                    </li>
+                    <li><a href="../services/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="service_appliance">Appliance
+                            Repair</a></li>
+                    <li><a href="../services/index.html" class="hover:text-blue-500 transition-colors"
+                            data-i18n="service_amc">Industrial
+                            AMC</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6" data-i18n="footer_contact">Contact</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-map-marker-alt text-blue-600 mt-1"></i>
+                        <span>Mantu singh market high school chowk,<br>Parsa bazar, Parsa Mathura, Bihar 841219</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-phone-alt text-blue-600"></i>
+                        <a href="tel:8347588525" class="hover:text-white">8347588525</a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-envelope text-blue-600"></i>
+                        <a href="mailto:contact.balajielectronics@gmail.com"
+                            class="hover:text-white">contact.balajielectronics@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto px-4 pt-8 border-t border-slate-900 text-center text-xs font-bold text-slate-600 tracking-widest uppercase flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© 2026 Balaji Electronics.</p>
+            <p>Built with <i class="fas fa-heart text-red-500"></i> by <a href="https://pehchanly.com" target="_blank"
+                    class="text-white hover:text-blue-400 decoration-none">Pehchanly</a></p>
+        </div>
+    </footer>
+
+    <!-- Float Button -->
+    <a href="https://wa.me/918347588525"
+        class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-transform hover:scale-110 animate-pulse-glow">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
